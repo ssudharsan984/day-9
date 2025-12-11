@@ -60,7 +60,7 @@ function App() {
   );
 }
 
-export default App;
+export default App; 
 import React, { useEffect, useState } from 'react'
 
 function App() {
@@ -135,7 +135,10 @@ function App() {
   )
 }
 
-export default App import React, { useState } from "react";
+export default App 
+
+ import React, { useState } from "react";
+import { jsx } from "react/jsx-runtime";
 
 function App() {
   // which screen
@@ -162,6 +165,7 @@ function App() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+  
 
     if (
       loginEmail.trim() === regEmail.trim() &&
@@ -202,6 +206,7 @@ function App() {
             value={regName}
             onChange={(e) => setRegName(e.target.value)}
           />
+
 
           <label>Email:</label>
           <input
@@ -271,137 +276,34 @@ function App() {
 }
 
 export default App;*/
-import React, { useState } from "react";
+
+import React from "react";
+import { Link, Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Product from "./pages/Product";
 
 function App() {
-  // which screen
-  const [showLogin, setShowLogin] = useState(false);
-
-  // register data (saved user)
-  const [regName, setRegName] = useState("");
-  const [regEmail, setRegEmail] = useState("");
-  const [regPassword, setRegPassword] = useState("");
-
-  // login form inputs
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-
-  const handleRegister = (e) => {
-    e.preventDefault();
-    if (!regName || !regEmail || !regPassword) {
-      alert("Please fill all register fields");
-      return;
-    }
-    alert("Registered successfully!");
-    setShowLogin(true); // go to login page
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    if (
-      loginEmail.trim() === regEmail.trim() &&
-      loginPassword === regPassword
-    ) {
-      alert("Login success!");
-    } else {
-      alert("Login failed: wrong email or password");
-    }
-  };
-
-  const inputStyle = {
-    border: "1px solid #911111ff",
-    padding: "8px",
-    marginBottom: "10px",
-    outline: "none",
-  };
-
-  const buttonStyle = {
-    padding: "8px",
-    marginTop: "10px",
-    color: "white",
-    backgroundColor: "green",
-    border: "none",
-    cursor: "pointer",
-  };
-
-  // ---------- REGISTER PAGE ----------
-  if (!showLogin) {
-    return (
-      <div style={{ maxWidth: "300px", margin: "20px auto" }}>
-        <h3>Register</h3>
-        <form onSubmit={handleRegister} style={{ display: "flex", flexDirection: "column" }}>
-          <label>Name:</label>
-          <input
-            type="text"
-            style={inputStyle}
-            value={regName}
-            onChange={(e) => setRegName(e.target.value)}
-          />
-
-          <label>Email:</label>
-          <input
-            type="email"
-            style={inputStyle}
-            value={regEmail}
-            onChange={(e) => setRegEmail(e.target.value)}
-          />
-
-          <label>Password:</label>
-          <input
-            type="password"
-            style={inputStyle}
-            value={regPassword}
-            onChange={(e) => setRegPassword(e.target.value)}
-          />
-
-          <button type="submit" style={buttonStyle}>
-            Register
-          </button>
-        </form>
-
-        <p style={{ marginTop: "10px" }}>
-          Already have account?{" "}
-          <button type="button" onClick={() => setShowLogin(true)}>
-            Go to Login
-          </button>
-        </p>
-      </div>
-    );
-  }
-
-  // ---------- LOGIN PAGE ----------
   return (
-    <div style={{ maxWidth: "300px", margin: "20px auto" }}>
-      <h3>Login</h3>
-      <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column" }}>
-        <label>Email:</label>
-        <input
-          type="email"
-          style={inputStyle}
-          value={loginEmail}
-          onChange={(e) => setLoginEmail(e.target.value)}
-        />
+    <div>
+    
+      <nav style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
+        <Link to="/">Login</Link>
+        <Link to="/register">Register</Link>
+        <Link to="/home">Home</Link>
+        <Link to="/about">About</Link>
+      </nav>
 
-        <label>Password:</label>
-        <input
-          type="password"
-          style={inputStyle}
-          value={loginPassword}
-          onChange={(e) => setLoginPassword(e.target.value)}
-        />
-
-        <button type="submit" style={buttonStyle}>
-          Login
-        </button>
-      </form>
-
-      <p style={{ marginTop: "10px" }}>
-        New user?{" "}
-        <button type="button" onClick={() => setShowLogin(false)}>
-          Go to Register
-        </button>
-      </p>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/product/:id" element={<Product />} />
+      </Routes>
     </div>
   );
 }
