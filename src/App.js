@@ -275,7 +275,7 @@ function App() {
   );
 }
 
-export default App;*/
+export default App;
 
 import React from "react";
 import { Link, Routes, Route } from "react-router-dom";
@@ -308,4 +308,37 @@ function App() {
   );
 }
 
-export default App;
+export default App;*/
+import React, { useReducer } from 'react'
+
+let initialstate = 0
+
+const INC_DC = (state, action) => {
+  switch (action) {
+    case 'increment':
+      return state + 1
+    case 'decrement':
+      return state - 1
+    case 'reset':
+      return initialstate
+    default:
+      return state
+  }
+}
+
+function App() {
+  const [state, dispatch] = useReducer(INC_DC, initialstate)
+
+  return (
+    <div>
+      {state}
+      <button onClick={() => dispatch('increment')}>increment</button>
+      <button onClick={() => dispatch('decrement')}>decrement</button>
+      <button onClick={() => dispatch('reset')}>reset</button>
+    </div>
+  )
+}
+
+export default App
+
+
